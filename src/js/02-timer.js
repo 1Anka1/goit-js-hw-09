@@ -60,7 +60,7 @@ class Timer {
     refs.startBtn.disabled = true;
   }
 
-  start() {
+  startTimer() {
     if (this.isActive) {
       return;
     }
@@ -70,7 +70,7 @@ class Timer {
       const deltaTime = selectedTime - currentTime;
       const componentsTimer = convertMs(deltaTime);
       this.updateClockface(componentsTimer);
-      if (deltaTime <= 0) {
+      if (deltaTime < 1000) {
         this.stopTimer();
       }
     }, 1000);
@@ -82,10 +82,10 @@ class Timer {
     refs.seconds.textContent = seconds;
   }
   stopTimer() {
-    clearInterval(this.timerID);
+    clearInterval(this.intervalId);
   }
 }
 
 const timer = new Timer();
-refs.startBtn.addEventListener('click', () => timer.start());
+refs.startBtn.addEventListener('click', () => timer.startTimer());
 flatpickr(refs.inputDate, options);
